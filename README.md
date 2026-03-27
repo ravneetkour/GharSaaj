@@ -5,6 +5,10 @@ GharSaaj is a beautifully designed, single-page e-commerce web application for h
 ## 🌍 Live Demo
 [View Live Site](https://ravneetkour.github.io/GharSaaj/)
 
+
+<img width="1365" height="727" alt="image" src="https://github.com/user-attachments/assets/c047c715-aa6d-4a08-be48-fe4990a728aa" />
+
+
 ## ✨ Features
 
 * **Multi-language Support:** Users can seamlessly toggle the interface and product names between English (EN), Hindi (HI), and Punjabi (PA).
