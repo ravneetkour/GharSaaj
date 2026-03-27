@@ -28,4 +28,5 @@ Since this project has no external dependencies or build steps, running it local
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/ravneetkour/GharSaaj.git](https://github.com/ravneetkour/GharSaaj.git)
+   git clone https://github.com/ravneetkour/GharSaaj.git
+   ```
