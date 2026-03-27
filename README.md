@@ -5,9 +5,7 @@ GharSaaj is a beautifully designed, single-page e-commerce web application for h
 ## 🌍 Live Demo
 [View Live Site](https://ravneetkour.github.io/GharSaaj/)
 
-
-<img width="1365" height="727" alt="image" src="https://github.com/user-attachments/assets/c047c715-aa6d-4a08-be48-fe4990a728aa" />
-
+<img width="1365" height="727" alt="image" src="https://github.com/user-attachments/assets/7e2a06d9-16ea-48fe-8e62-bff71b855244" />
 
 ## ✨ Features
 
@@ -34,3 +32,12 @@ Since this project has no external dependencies or build steps, running it local
    ```bash
    git clone https://github.com/ravneetkour/GharSaaj.git
    ```
+2. Navigate to the project directory:
+   ```bash
+   cd GharSaaj
+   ```
+3. Open `index.html` in your favorite web browser. 
+
+## 📝 License
+
+© 2026 GharSaaj. All rights reserved. 
