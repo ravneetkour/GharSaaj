@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GharSaaj – Home Products Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm: #f5ede0;
+    --clay: #c8785a;
+    --clay-dark: #a35c40;
+    --clay-light: #e8a98a;
+    --forest: #2d4a3e;
+    --forest-light: #3d6b5a;
+    --gold: #d4a853;
+    --charcoal: #2a2420;
+    --mid: #6b5c52;
+    --light-text: #a09080;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(42,36,32,0.10);
+    --shadow-lg: 0 12px 48px rgba(42,36,32,0.16);
+    --radius: 16px;
+    --radius-sm: 8px;
+    --transition: 0.28s cubic-bezier(0.4,0,0.2,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--charcoal); min-height:100vh; }
+
+  /* NAVBAR */
+  nav {
+    position:sticky; top:0; z-index:1000;
+    background:rgba(250,246,240,0.96);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(200,120,90,0.15);
+    box-shadow:0 2px 20px rgba(42,36,32,0.08);
+  }
+  .nav-inner {
+    max-width:1400px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 24px; height:68px; gap:16px;
+  }
+  .nav-logo {
+    font-family:'Playfair Display',serif;
+    font-size:1.7rem; font-weight:900;
+    color:var(--clay); text-decoration:none;
+    letter-spacing:-0.5px; white-space:nowrap;
+  }
+  .nav-logo span { color:var(--forest); }
+  .nav-search {
+    flex:1; max-width:440px;
+    display:flex; align-items:center;
+    background:var(--warm); border:1.5px solid transparent;
+    border-radius:50px; padding:0 18px; gap:10px;
+    transition:var(--transition);
+  }
+  .nav-search:focus-within { border-color:var(--clay); background:var(--white); }
+  .nav-search input {
+    flex:1; border:none; background:transparent;
+    font-family:'DM Sans',sans-serif; font-size:0.93rem; color:var(--charcoal);
+    outline:none; padding:10px 0;
+  }
+  .nav-search input::placeholder { color:var(--light-text); }
+  .search-icon { color:var(--mid); font-size:1rem; }
+  .nav-right { display:flex; align-items:center; gap:10px; }
+  .lang-btn {
+    display:flex; align-items:center; gap:6px;
+    background:var(--warm); border:1.5px solid var(--clay-light);
+    border-radius:50px; padding:7px 16px;
+    font-family:'DM Sans',sans-serif; font-size:0.85rem;
+    font-weight:600; color:var(--clay-dark); cursor:pointer;
+    transition:var(--transition);
+  }
+  .lang-btn:hover { background:var(--clay); color:var(--white); border-color:var(--clay); }
+  .cart-btn {
+    display:flex; align-items:center; gap:8px;
+    background:var(--clay); border:none; border-radius:50px;
+    padding:9px 20px; cursor:pointer;
+    font-family:'DM Sans',sans-serif; font-size:0.9rem;
+    font-weight:600; color:var(--white);
+    transition:var(--transition); position:relative;
+  }
+  .cart-btn:hover { background:var(--clay-dark); transform:translateY(-1px); box-shadow:var(--shadow); }
+  .cart-count {
+    background:var(--gold); color:var(--charcoal);
+    border-radius:50%; width:20px; height:20px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.72rem; font-weight:700;
+    transition:var(--transition);
+  }
+  .hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; }
+  .hamburger span { display:block; width:24px; height:2px; background:var(--charcoal); margin:5px 0; border-radius:2px; transition:var(--transition); }
+
+  /* CATEGORY BAR */
+  .cat-bar {
+    background:var(--forest); padding:0;
+  }
+  .cat-bar-inner {
+    max-width:1400px; margin:0 auto;
+    display:flex; align-items:center;
+    padding:0 24px; gap:4px; overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .cat-bar-inner::-webkit-scrollbar { display:none; }
+  .cat-tab {
+    display:flex; align-items:center; gap:7px;
+    padding:12px 20px; cursor:pointer;
+    font-size:0.88rem; font-weight:500;
+    color:rgba(255,255,255,0.7);
+    border-bottom:2.5px solid transparent;
+    transition:var(--transition); white-space:nowrap;
+    background:none; border-top:none; border-left:none; border-right:none;
+    font-family:'DM Sans',sans-serif;
+  }
+  .cat-tab:hover { color:var(--white); background:rgba(255,255,255,0.07); }
+  .cat-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+  .cat-tab .cat-icon { font-size:1.1rem; }
+
+  /* HERO */
+  .hero {
+    background:linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 60%, var(--clay) 100%);
+    padding:64px 24px 56px;
+    text-align:center; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-content { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+  .hero h1 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,5vw,3.4rem); font-weight:900;
+    color:var(--white); line-height:1.12; margin-bottom:16px;
+  }
+  .hero h1 em { color:var(--gold); font-style:normal; }
+  .hero p { color:rgba(255,255,255,0.8); font-size:1.05rem; margin-bottom:28px; }
+  .hero-stats {
+    display:flex; justify-content:center; gap:32px; flex-wrap:wrap;
+  }
+  .hero-stat { text-align:center; }
+  .hero-stat .num { font-size:1.6rem; font-weight:700; color:var(--gold); font-family:'Playfair Display',serif; }
+  .hero-stat .lbl { font-size:0.78rem; color:rgba(255,255,255,0.65); text-transform:uppercase; letter-spacing:1px; }
+
+  /* MAIN */
+  .main { max-width:1400px; margin:0 auto; padding:32px 24px 64px; }
+  .section-header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:28px; flex-wrap:wrap; gap:12px;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif;
+    font-size:1.7rem; font-weight:700; color:var(--charcoal);
+  }
+  .section-title span { color:var(--clay); }
+  .result-count { color:var(--light-text); font-size:0.9rem; }
+  .sort-select {
+    background:var(--warm); border:1.5px solid rgba(200,120,90,0.2);
+    border-radius:8px; padding:8px 14px;
+    font-family:'DM Sans',sans-serif; font-size:0.88rem;
+    color:var(--charcoal); cursor:pointer; outline:none;
+  }
+
+  /* PRODUCT GRID */
+  .product-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:20px;
+  }
+  .product-card {
+    background:var(--white); border-radius:var(--radius);
+    overflow:hidden; cursor:pointer;
+    box-shadow:0 2px 12px rgba(42,36,32,0.07);
+    transition:transform var(--transition), box-shadow var(--transition);
+    animation:fadeUp 0.4s ease both;
+    position:relative;
+  }
+  .product-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  .card-img-wrap {
+    width:100%; height:190px; overflow:hidden;
+    background:linear-gradient(135deg, var(--warm), var(--cream));
+    position:relative;
+  }
+  .card-img-wrap img {
+    width:100%; height:100%; object-fit:cover;
+    transition:transform 0.5s ease;
+  }
+  .product-card:hover .card-img-wrap img { transform:scale(1.06); }
+  .card-badge {
+    position:absolute; top:10px; left:10px;
+    background:var(--clay); color:var(--white);
+    font-size:0.7rem; font-weight:700;
+    padding:3px 10px; border-radius:50px;
+    text-transform:uppercase; letter-spacing:0.5px;
+  }
+  .card-wishlist {
+    position:absolute; top:10px; right:10px;
+    background:rgba(255,255,255,0.92); border:none;
+    border-radius:50%; width:32px; height:32px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1rem;
+    transition:var(--transition); opacity:0;
+  }
+  .product-card:hover .card-wishlist { opacity:1; }
+  .card-wishlist:hover { background:var(--white); transform:scale(1.15); }
+  .card-body { padding:14px 16px 16px; }
+  .card-cat { font-size:0.72rem; color:var(--clay); font-weight:600; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:5px; }
+  .card-name { font-size:0.95rem; font-weight:600; color:var(--charcoal); margin-bottom:3px; line-height:1.35; }
+  .card-name-sub { font-size:0.78rem; color:var(--light-text); margin-bottom:10px; min-height:18px; }
+  .card-footer { display:flex; align-items:center; justify-content:space-between; }
+  .card-price { font-size:1.1rem; font-weight:700; color:var(--forest); }
+  .card-price .orig { font-size:0.78rem; color:var(--light-text); text-decoration:line-through; margin-left:5px; font-weight:400; }
+  .add-btn {
+    background:var(--clay); color:var(--white); border:none;
+    border-radius:8px; padding:7px 14px;
+    font-size:0.82rem; font-weight:600;
+    cursor:pointer; transition:var(--transition);
+    font-family:'DM Sans',sans-serif;
+  }
+  .add-btn:hover { background:var(--clay-dark); transform:scale(1.04); }
+  .add-btn.added { background:var(--forest); }
+
+  /* RATING STARS */
+  .card-rating { display:flex; align-items:center; gap:4px; margin-bottom:8px; }
+  .stars { color:var(--gold); font-size:0.75rem; letter-spacing:1px; }
+  .rating-count { font-size:0.72rem; color:var(--light-text); }
+
+  /* PAGINATION */
+  .pagination {
+    display:flex; align-items:center; justify-content:center;
+    gap:8px; margin-top:48px; flex-wrap:wrap;
+  }
+  .page-btn {
+    width:38px; height:38px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    border:1.5px solid rgba(200,120,90,0.25);
+    background:var(--white); cursor:pointer;
+    font-size:0.88rem; font-weight:500; color:var(--mid);
+    transition:var(--transition);
+  }
+  .page-btn:hover, .page-btn.active { background:var(--clay); color:var(--white); border-color:var(--clay); }
+  .page-btn:disabled { opacity:0.4; cursor:not-allowed; }
+
+  /* CART DRAWER */
+  .cart-overlay {
+    position:fixed; inset:0; background:rgba(42,36,32,0.45);
+    z-index:2000; opacity:0; pointer-events:none;
+    transition:opacity var(--transition);
+    backdrop-filter:blur(4px);
+  }
+  .cart-overlay.open { opacity:1; pointer-events:all; }
+  .cart-drawer {
+    position:fixed; right:0; top:0; bottom:0;
+    width:min(420px, 100vw);
+    background:var(--cream); z-index:2001;
+    transform:translateX(100%); transition:transform var(--transition);
+    display:flex; flex-direction:column;
+    box-shadow:-8px 0 40px rgba(42,36,32,0.14);
+  }
+  .cart-drawer.open { transform:translateX(0); }
+  .cart-header {
+    padding:20px 24px; border-bottom:1px solid rgba(200,120,90,0.15);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .cart-header h2 { font-family:'Playfair Display',serif; font-size:1.3rem; }
+  .cart-close {
+    background:var(--warm); border:none; border-radius:50%;
+    width:34px; height:34px; cursor:pointer; font-size:1.1rem;
+    display:flex; align-items:center; justify-content:center;
+    transition:var(--transition);
+  }
+  .cart-close:hover { background:var(--clay); color:var(--white); }
+  .cart-items { flex:1; overflow-y:auto; padding:16px 24px; }
+  .cart-empty {
+    text-align:center; padding:60px 20px; color:var(--light-text);
+  }
+  .cart-empty .empty-icon { font-size:3rem; margin-bottom:12px; }
+  .cart-item {
+    display:flex; gap:14px; padding:14px 0;
+    border-bottom:1px solid rgba(200,120,90,0.1);
+    animation:fadeUp 0.3s ease;
+  }
+  .cart-item-img {
+    width:70px; height:70px; border-radius:10px;
+    object-fit:cover; background:var(--warm); flex-shrink:0;
+  }
+  .cart-item-info { flex:1; }
+  .cart-item-name { font-size:0.9rem; font-weight:600; margin-bottom:3px; }
+  .cart-item-sub { font-size:0.78rem; color:var(--light-text); margin-bottom:8px; }
+  .cart-item-controls { display:flex; align-items:center; gap:8px; }
+  .qty-btn {
+    background:var(--warm); border:none; border-radius:6px;
+    width:26px; height:26px; cursor:pointer;
+    font-size:0.95rem; display:flex; align-items:center; justify-content:center;
+    transition:var(--transition);
+  }
+  .qty-btn:hover { background:var(--clay); color:var(--white); }
+  .qty-num { font-size:0.9rem; font-weight:600; min-width:20px; text-align:center; }
+  .cart-item-price { font-weight:700; color:var(--forest); font-size:0.95rem; }
+  .cart-item-remove { background:none; border:none; cursor:pointer; color:var(--light-text); font-size:1rem; transition:var(--transition); }
+  .cart-item-remove:hover { color:#e74c3c; }
+  .cart-footer {
+    padding:20px 24px; border-top:1px solid rgba(200,120,90,0.15);
+    background:var(--white);
+  }
+  .cart-total-row { display:flex; justify-content:space-between; margin-bottom:6px; }
+  .cart-total-row.grand { font-size:1.1rem; font-weight:700; padding-top:10px; border-top:1px solid rgba(200,120,90,0.2); margin-top:6px; }
+  .checkout-btn {
+    width:100%; padding:14px; background:var(--clay);
+    color:var(--white); border:none; border-radius:12px;
+    font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700;
+    cursor:pointer; margin-top:16px; transition:var(--transition);
+  }
+  .checkout-btn:hover { background:var(--clay-dark); transform:translateY(-1px); box-shadow:var(--shadow); }
+
+  /* TOAST */
+  .toast {
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--forest); color:var(--white);
+    padding:12px 24px; border-radius:50px;
+    font-size:0.9rem; font-weight:500;
+    z-index:3000; opacity:0; transition:all 0.35s ease;
+    pointer-events:none; white-space:nowrap;
+    box-shadow:var(--shadow-lg);
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* FOOTER */
+  footer {
+    background:var(--charcoal); color:rgba(255,255,255,0.7);
+    padding:48px 24px 28px;
+  }
+  .footer-inner {
+    max-width:1400px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:32px; margin-bottom:36px;
+  }
+  .footer-brand .logo { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--clay-light); font-weight:900; }
+  .footer-brand p { font-size:0.88rem; margin-top:10px; line-height:1.65; }
+  .footer-col h4 { color:var(--white); font-weight:600; margin-bottom:14px; font-size:0.95rem; }
+  .footer-col ul { list-style:none; }
+  .footer-col li { margin-bottom:8px; font-size:0.87rem; cursor:pointer; transition:var(--transition); }
+  .footer-col li:hover { color:var(--clay-light); }
+  .footer-bottom {
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding-top:20px; text-align:center; font-size:0.82rem;
+    max-width:1400px; margin:0 auto;
+  }
+
+  /* MOBILE NAV */
+  .mobile-nav {
+    display:none;
+    position:fixed; top:68px; left:0; right:0;
+    background:var(--cream); z-index:999;
+    padding:16px 24px; border-bottom:1px solid rgba(200,120,90,0.15);
+    box-shadow:var(--shadow);
+    flex-direction:column; gap:12px;
+  }
+  .mobile-nav.open { display:flex; }
+  .mobile-nav .nav-search { max-width:100%; }
+
+  /* RESPONSIVE */
+  @media (max-width:768px) {
+    .nav-search, .nav-right .lang-btn { display:none; }
+    .hamburger { display:block; }
+    .hero { padding:40px 16px 36px; }
+    .product-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; }
+    .card-img-wrap { height:150px; }
+    .main { padding:20px 16px 48px; }
+  }
+  @media (max-width:480px) {
+    .product-grid { grid-template-columns:repeat(2,1fr); }
+    .hero-stats { gap:20px; }
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position:fixed; bottom:28px; right:28px;
+    background:var(--clay); color:var(--white);
+    border:none; border-radius:50%; width:44px; height:44px;
+    cursor:pointer; font-size:1.1rem;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow); z-index:500;
+    opacity:0; pointer-events:none; transition:var(--transition);
+  }
+  .scroll-top.visible { opacity:1; pointer-events:all; }
+  .scroll-top:hover { background:var(--clay-dark); transform:scale(1.1); }
+
+  /* Loading skeleton */
+  .skeleton { background:linear-gradient(90deg,var(--warm) 25%,var(--cream) 50%,var(--warm) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:8px; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Ghar<span>Saaj</span></a>
+    <div class="nav-search" id="desktopSearch">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search products…" oninput="handleSearch(this.value)">
+    </div>
+    <div class="nav-right">
+      <button class="lang-btn" onclick="cycleLanguage()" id="langBtn">🌐 EN</button>
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 <span id="cartLabel">Cart</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="nav-search" style="max-width:100%">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="mobileSearchInput" placeholder="Search products…" oninput="handleSearch(this.value)">
+  </div>
+</div>
+
+<!-- CATEGORY BAR -->
+<div class="cat-bar">
+  <div class="cat-bar-inner">
+    <button class="cat-tab active" onclick="setCategory('all',this)" data-key="catAll">
+      <span class="cat-icon">🏠</span> <span>All Products</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('furniture',this)" data-key="catFurniture">
+      <span class="cat-icon">🛋️</span> <span>Furniture</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('kitchen',this)" data-key="catKitchen">
+      <span class="cat-icon">🍳</span> <span>Kitchen</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('electronics',this)" data-key="catElectronics">
+      <span class="cat-icon">📺</span> <span>Electronics</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('decor',this)" data-key="catDecor">
+      <span class="cat-icon">🪴</span> <span>Decor</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('bedding',this)" data-key="catBedding">
+      <span class="cat-icon">🛏️</span> <span>Bedding</span>
+    </button>
+    <button class="cat-tab" onclick="setCategory('lighting',this)" data-key="catLighting">
+      <span class="cat-icon">💡</span> <span>Lighting</span>
+    </button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Your Home, <em>Beautifully</em> Furnished</h1>
+    <p id="heroSub">Discover 1000+ curated home products for every room</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">1000+</div><div class="lbl" id="statProducts">Products</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="lbl" id="statLanguages">Languages</div></div>
+      <div class="hero-stat"><div class="num">7</div><div class="lbl" id="statCategories">Categories</div></div>
+      <div class="hero-stat"><div class="num">⭐4.8</div><div class="lbl" id="statRating">Avg Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title" id="sectionTitle">All <span>Products</span></h2>
+      <p class="result-count" id="resultCount"></p>
+    </div>
+    <select class="sort-select" onchange="handleSort(this.value)">
+      <option value="default">Sort: Featured</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="rating">Top Rated</option>
+      <option value="name">A – Z</option>
+    </select>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">GharSaaj</div>
+      <p>Your one-stop destination for beautiful home products. Quality, style, and value for every Indian home.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li>Furniture</li><li>Kitchen</li><li>Electronics</li>
+        <li>Decor</li><li>Bedding</li><li>Lighting</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Customer Care</h4>
+      <ul>
+        <li>Track Order</li><li>Returns & Refunds</li>
+        <li>Size Guide</li><li>FAQ</li><li>Contact Us</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li>About Us</li><li>Blog</li><li>Careers</li>
+        <li>Press</li><li>Privacy Policy</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 GharSaaj. Made with ❤️ in India. All rights reserved.
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2 id="cartTitle">🛒 Your Cart</h2>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="empty-icon">🛒</div>
+      <p id="emptyMsg">Your cart is empty</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row"><span id="subtotalLabel">Subtotal</span><span id="cartSubtotal">₹0</span></div>
+    <div class="cart-total-row"><span id="shippingLabel">Shipping</span><span>FREE</span></div>
+    <div class="cart-total-row grand"><span id="totalLabel">Total</span><span id="cartTotal">₹0</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ==================== DATA GENERATION ====================
+const LANGS = ['en','hi','pa'];
+let currentLang = 'en';
+let currentCategory = 'all';
+let currentPage = 1;
+let sortMode = 'default';
+let searchQuery = '';
+const PER_PAGE = 40;
+
+const UI_TEXT = {
+  en: {
+    cartTitle:'🛒 Your Cart', emptyMsg:'Your cart is empty',
+    subtotalLabel:'Subtotal', shippingLabel:'Shipping', totalLabel:'Total',
+    checkoutBtn:'Proceed to Checkout →', cartLabel:'Cart',
+    heroSub:'Discover 1000+ curated home products for every room',
+    statProducts:'Products', statLanguages:'Languages',
+    statCategories:'Categories', statRating:'Avg Rating',
+    addBtn:'Add', addedBtn:'Added ✓',
+    catAll:'All Products', catFurniture:'Furniture', catKitchen:'Kitchen',
+    catElectronics:'Electronics', catDecor:'Decor', catBedding:'Bedding', catLighting:'Lighting',
+    sortFeatured:'Sort: Featured', langLabel:'🌐 EN',
+  },
+  hi: {
+    cartTitle:'🛒 आपकी कार्ट', emptyMsg:'कार्ट खाली है',
+    subtotalLabel:'उपयोग', shippingLabel:'शिपिंग', totalLabel:'कुल',
+    checkoutBtn:'चेकआउट करें →', cartLabel:'कार्ट',
+    heroSub:'हर कमरे के लिए 1000+ चुनिंदा होम प्रोडक्ट',
+    statProducts:'उत्पाद', statLanguages:'भाषाएँ',
+    statCategories:'श्रेणियाँ', statRating:'औसत रेटिंग',
+    addBtn:'जोड़ें', addedBtn:'जोड़ा ✓',
+    catAll:'सभी उत्पाद', catFurniture:'फर्नीचर', catKitchen:'किचन',
+    catElectronics:'इलेक्ट्रॉनिक्स', catDecor:'सजावट', catBedding:'बिस्तर', catLighting:'रोशनी',
+    sortFeatured:'क्रम: विशेष', langLabel:'🌐 HI',
+  },
+  pa: {
+    cartTitle:'🛒 ਤੁਹਾਡੀ ਕਾਰਟ', emptyMsg:'ਕਾਰਟ ਖਾਲੀ ਹੈ',
+    subtotalLabel:'ਉਪ-ਕੁੱਲ', shippingLabel:'ਸ਼ਿਪਿੰਗ', totalLabel:'ਕੁੱਲ',
+    checkoutBtn:'ਚੈੱਕਆਉਟ →', cartLabel:'ਕਾਰਟ',
+    heroSub:'ਹਰ ਕਮਰੇ ਲਈ 1000+ ਘਰੇਲੂ ਵਸਤੂਆਂ',
+    statProducts:'ਉਤਪਾਦ', statLanguages:'ਭਾਸ਼ਾਵਾਂ',
+    statCategories:'ਸ਼੍ਰੇਣੀਆਂ', statRating:'ਔਸਤ ਰੇਟਿੰਗ',
+    addBtn:'ਜੋੜੋ', addedBtn:'ਜੋੜਿਆ ✓',
+    catAll:'ਸਾਰੇ ਉਤਪਾਦ', catFurniture:'ਫਰਨੀਚਰ', catKitchen:'ਰਸੋਈ',
+    catElectronics:'ਇਲੈਕਟ੍ਰੋਨਿਕਸ', catDecor:'ਸਜਾਵਟ', catBedding:'ਬਿਸਤਰਾ', catLighting:'ਰੋਸ਼ਨੀ',
+    sortFeatured:'ਕ੍ਰਮ: ਵਿਸ਼ੇਸ਼', langLabel:'🌐 PA',
+  }
+};
+
+const CATEGORIES = ['furniture','kitchen','electronics','decor','bedding','lighting'];
+const CAT_ICONS = {furniture:'🛋️',kitchen:'🍳',electronics:'📺',decor:'🪴',bedding:'🛏️',lighting:'💡'};
+
+// Unsplash image IDs for each category (curated)
+const CAT_IMAGES = {
+  furniture:[
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80',
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',
+    'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80',
+    'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=400&q=80',
+    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80',
+    'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80',
+    'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&q=80',
+    'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=400&q=80',
+    'https://images.unsplash.com/photo-1564078516393-cf04bd966897?w=400&q=80',
+    'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0?w=400&q=80',
+  ],
+  kitchen:[
+    'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',
+    'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400&q=80',
+    'https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=80',
+    'https://images.unsplash.com/photo-1567581935884-3349723552ca?w=400&q=80',
+    'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80',
+    'https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400&q=80',
+    'https://images.unsplash.com/photo-1576867757603-05b134ebc379?w=400&q=80',
+    'https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=400&q=80',
+    'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=400&q=80',
+    'https://images.unsplash.com/photo-1608500218877-b6c1b9a8c4b1?w=400&q=80',
+  ],
+  electronics:[
+    'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&q=80',
+    'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+    'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80',
+    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&q=80',
+    'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&q=80',
+    'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&q=80',
+    'https://images.unsplash.com/photo-1620143010960-6ff6c9a8d1a1?w=400&q=80',
+    'https://images.unsplash.com/photo-1563203369-26f2e4a5ccf7?w=400&q=80',
+  ],
+  decor:[
+    'https://images.unsplash.com/photo-1616627451515-cbc80e5ece41?w=400&q=80',
+    'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400&q=80',
+    'https://images.unsplash.com/photo-1615529182904-14819c35db37?w=400&q=80',
+    'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80',
+    'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=400&q=80',
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',
+    'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80',
+    'https://images.unsplash.com/photo-1619854773978-a17a5e2f5a7d?w=400&q=80',
+    'https://images.unsplash.com/photo-1608501821300-4f99e58bba77?w=400&q=80',
+    'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400&q=80',
+  ],
+  bedding:[
+    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80',
+    'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=400&q=80',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80',
+    'https://images.unsplash.com/photo-1592229505726-ca121723b8ef?w=400&q=80',
+    'https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=400&q=80',
+    'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=400&q=80',
+    'https://images.unsplash.com/photo-1567225477277-c8162eb9b4bf?w=400&q=80',
+    'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80',
+    'https://images.unsplash.com/photo-1600369671920-6db92e8ef5f2?w=400&q=80',
+    'https://images.unsplash.com/photo-1588099768523-f4e6a5679d88?w=400&q=80',
+  ],
+  lighting:[
+    'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&q=80',
+    'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=400&q=80',
+    'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80',
+    'https://images.unsplash.com/photo-1513506003901-1e6a35359a63?w=400&q=80',
+    'https://images.unsplash.com/photo-1555685812-4b8f286b4b2e?w=400&q=80',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+    'https://images.unsplash.com/photo-1572461226335-a72fbc614911?w=400&q=80',
+    'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=400&q=80',
+    'https://images.unsplash.com/photo-1630396952619-67db12adee04?w=400&q=80',
+    'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=400&q=80',
+  ]
+};
+
+// Product name templates per language
+const NAMES = {
+  en: {
+    furniture:['Solid Wood Sofa','Teak Dining Table','Rattan Bookshelf','Velvet Armchair','Oak Coffee Table','Marble Side Table','Bamboo Wardrobe','Leather Recliner','Pine Bed Frame','Steel Shoe Rack','Wicker Storage Chest','Modular Sectional','Glass Display Cabinet','Metal Bunk Bed','Cane Accent Chair'],
+    kitchen:['Cast Iron Kadai','Copper Handi Set','Non-Stick Tawa','Stainless Steel Pressure Cooker','Ceramic Dinner Set','Bamboo Cutting Board','Glass Spice Rack','Clay Pot Collection','Granite Mortar & Pestle','Induction Cookware Set','Copper Water Jug','Steel Dabba Set','Wooden Masala Box','Silicone Baking Mat','Electric Tandoor'],
+    electronics:['4K Smart TV','Air Purifier','Robotic Vacuum','WiFi Router','Smart Speaker','LED Desk Lamp','Digital Photo Frame','Home Security Camera','Smart Doorbell','Air Fryer','Induction Cooktop','Electric Kettle','Portable Projector','Bluetooth Sound Bar','Smart Plug Strip'],
+    decor:['Terracotta Vase Set','Brass Diya Stand','Wooden Wall Art','Macrame Wall Hanging','Handwoven Rug','Marble Candle Holders','Bamboo Wind Chime','Metal Wall Clock','Jute Table Runner','Ceramic Flower Pot'],
+    bedding:['Cotton Duvet Cover','Silk Pillow Set','Weighted Blanket','Linen Sheet Set','Memory Foam Pillow','Handblock Print Quilt','Bamboo Mattress Topper','Velvet Cushion Set','Jaipuri Razai','Cooling Mattress Pad'],
+    lighting:['Pendant Chandelier','Wooden Floor Lamp','LED Panel Light','Bedside Touch Lamp','Solar Garden Light','Brass Table Lamp','Smart Bulb Set','Neon Sign Light','Industrial Wall Sconce','Fairy String Lights'],
+  },
+  hi: {
+    furniture:['लकड़ी का सोफा','टीक डाइनिंग टेबल','बांस की बुकशेल्फ','वेलवेट आर्मचेयर','ओक कॉफी टेबल','संगमरमर साइड टेबल','बांस की अलमारी','चमड़े की रिक्लाइनर','पाइन बेड फ्रेम','स्टील शू रैक','विकर स्टोरेज चेस्ट','मॉड्यूलर सेक्शनल','शीशे की कैबिनेट','मेटल बंक बेड','केन एक्सेंट चेयर'],
+    kitchen:['कास्ट आयरन कड़ाई','तांबे का हांडी सेट','नॉन-स्टिक तवा','स्टेनलेस स्टील कुकर','सेरामिक डिनर सेट','बांस का चॉपिंग बोर्ड','मसाले का रैक','मिट्टी के बर्तन','ग्रेनाइट ओखली','इंडक्शन कुकवेयर','तांबे का लोटा','स्टील डब्बा सेट','लकड़ी का मसाला बॉक्स','सिलिकॉन बेकिंग मैट','इलेक्ट्रिक तंदूर'],
+    electronics:['4K स्मार्ट टीवी','एयर प्यूरीफायर','रोबोटिक वैक्यूम','वाईफाई राउटर','स्मार्ट स्पीकर','एलईडी डेस्क लैंप','डिजिटल फोटो फ्रेम','होम कैमरा','स्मार्ट डोरबेल','एयर फ्रायर','इंडक्शन कुकटॉप','इलेक्ट्रिक केटल','पोर्टेबल प्रोजेक्टर','ब्लूटूथ साउंड बार','स्मार्ट प्लग'],
+    decor:['टेराकोटा फूलदान','पीतल का दीया स्टैंड','लकड़ी की दीवार कला','मैक्रेम वॉल हैंगिंग','हाथ से बुना कालीन','संगमरमर कैंडल होल्डर','बांस की विंड चाइम','मेटल वॉल क्लॉक','जूट टेबल रनर','मिट्टी का फूलदान'],
+    bedding:['कॉटन डुवेट कवर','सिल्क तकिया सेट','वेटेड कंबल','लिनेन शीट सेट','मेमोरी फोम तकिया','हाथ की छपाई रजाई','बांस मैट्रेस टॉपर','वेलवेट कुशन सेट','जयपुरी रजाई','कूलिंग मैट्रेस पैड'],
+    lighting:['पेंडेंट झाड़ फानूस','लकड़ी का फ्लोर लैंप','एलईडी पैनल लाइट','बेडसाइड टच लैंप','सोलर गार्डन लाइट','पीतल का टेबल लैंप','स्मार्ट बल्ब सेट','नियॉन साइन','इंडस्ट्रियल वॉल स्कॉन्स','परी रोशनी'],
+  },
+  pa: {
+    furniture:['ਲੱਕੜ ਦਾ ਸੋਫਾ','ਟੀਕ ਡਾਇਨਿੰਗ ਮੇਜ਼','ਬਾਂਸ ਦੀ ਬੁੱਕਸ਼ੈਲਫ','ਵੈਲਵੇਟ ਆਰਮਚੇਅਰ','ਓਕ ਕੌਫੀ ਮੇਜ਼','ਮਾਰਬਲ ਸਾਈਡ ਮੇਜ਼','ਬਾਂਸ ਦੀ ਅਲਮਾਰੀ','ਚਮੜੇ ਦੀ ਰਿਕਲਾਈਨਰ','ਪਾਈਨ ਬੈੱਡ ਫ੍ਰੇਮ','ਸਟੀਲ ਜੁੱਤੀ ਰੈਕ','ਵਿਕਰ ਸਟੋਰੇਜ','ਮੋਡੀਊਲਰ ਸੈਕਸ਼ਨਲ','ਸ਼ੀਸ਼ੇ ਦੀ ਕੈਬਿਨੇਟ','ਮੈਟਲ ਬੰਕ ਬੈੱਡ','ਕੇਨ ਐਕਸੈਂਟ ਚੇਅਰ'],
+    kitchen:['ਕਾਸਟ ਆਇਰਨ ਕੜਾਹੀ','ਤਾਂਬੇ ਦੀ ਹਾਂਡੀ','ਨਾਨ-ਸਟਿੱਕ ਤਵਾ','ਸਟੇਨਲੈਸ ਕੁੱਕਰ','ਸੇਰਾਮਿਕ ਡਿਨਰ ਸੈੱਟ','ਬਾਂਸ ਦਾ ਬੋਰਡ','ਮਸਾਲੇ ਦਾ ਰੈਕ','ਮਿੱਟੀ ਦੇ ਭਾਂਡੇ','ਗ੍ਰੇਨਾਈਟ ਸਿਲ-ਬੱਟਾ','ਇੰਡਕਸ਼ਨ ਕੁੱਕਵੇਅਰ','ਤਾਂਬੇ ਦਾ ਲੋਟਾ','ਸਟੀਲ ਡੱਬਾ ਸੈੱਟ','ਲੱਕੜ ਦਾ ਮਸਾਲਾ ਬਾਕਸ','ਸਿਲੀਕੋਨ ਬੇਕਿੰਗ ਮੈਟ','ਇਲੈਕਟ੍ਰਿਕ ਤੰਦੂਰ'],
+    electronics:['4K ਸਮਾਰਟ ਟੀਵੀ','ਏਅਰ ਪਿਊਰੀਫਾਇਰ','ਰੋਬੋਟਿਕ ਵੈਕਿਊਮ','ਵਾਈਫਾਈ ਰਾਊਟਰ','ਸਮਾਰਟ ਸਪੀਕਰ','ਐਲਈਡੀ ਡੈਸਕ ਲੈਂਪ','ਡਿਜ਼ੀਟਲ ਫੋਟੋ ਫ੍ਰੇਮ','ਹੋਮ ਕੈਮਰਾ','ਸਮਾਰਟ ਡੋਰਬੈੱਲ','ਏਅਰ ਫ੍ਰਾਇਰ','ਇੰਡਕਸ਼ਨ ਕੁੱਕਟੌਪ','ਇਲੈਕਟ੍ਰਿਕ ਕੇਟਲ','ਪੋਰਟੇਬਲ ਪ੍ਰੋਜੈਕਟਰ','ਬਲੂਟੁੱਥ ਸਾਊਂਡ ਬਾਰ','ਸਮਾਰਟ ਪਲੱਗ'],
+    decor:['ਟੈਰਾਕੋਟਾ ਫੁੱਲਦਾਨ','ਪਿੱਤਲ ਦਾ ਦੀਵਾ','ਲੱਕੜ ਦੀ ਕੰਧ ਕਲਾ','ਮੈਕਰੇਮ ਵੌਲ ਹੈਂਗਿੰਗ','ਹੱਥ ਬੁਣਿਆ ਗਲੀਚਾ','ਮਾਰਬਲ ਕੈਂਡਲ ਹੋਲਡਰ','ਬਾਂਸ ਦੀ ਵਿੰਡ ਚਾਈਮ','ਮੈਟਲ ਵੌਲ ਕਲਾਕ','ਜੂਟ ਟੇਬਲ ਰਨਰ','ਮਿੱਟੀ ਦਾ ਫੁੱਲਦਾਨ'],
+    bedding:['ਕਾਟਨ ਡੁਵੇਟ','ਸਿਲਕ ਸਿਰਹਾਣਾ ਸੈੱਟ','ਵੇਟਿਡ ਕੰਬਲ','ਲਿਨਨ ਸ਼ੀਟ ਸੈੱਟ','ਮੈਮੋਰੀ ਫੋਮ ਸਿਰਹਾਣਾ','ਹੱਥ ਛਾਪੀ ਰਜਾਈ','ਬਾਂਸ ਮੈਟ੍ਰੈਸ ਟੌਪਰ','ਵੈਲਵੇਟ ਕੁਸ਼ਨ ਸੈੱਟ','ਜੈਪੁਰੀ ਰਜਾਈ','ਕੂਲਿੰਗ ਮੈਟ੍ਰੈਸ ਪੈਡ'],
+    lighting:['ਪੈਂਡੈਂਟ ਝਾੜ ਫਾਨੂਸ','ਲੱਕੜ ਦਾ ਫਲੋਰ ਲੈਂਪ','ਐਲਈਡੀ ਪੈਨਲ ਲਾਈਟ','ਬੈੱਡਸਾਈਡ ਟੱਚ ਲੈਂਪ','ਸੋਲਰ ਬਾਗ ਲਾਈਟ','ਪਿੱਤਲ ਟੇਬਲ ਲੈਂਪ','ਸਮਾਰਟ ਬੱਲਬ ਸੈੱਟ','ਨਿਓਨ ਸਾਈਨ ਲਾਈਟ','ਇੰਡਸਟ੍ਰੀਅਲ ਵੌਲ ਲੈਂਪ','ਫੇਅਰੀ ਸਟ੍ਰਿੰਗ ਲਾਈਟਾਂ'],
+  }
+};
+
+const ADJECTIVES = {
+  en:['Premium','Artisan','Classic','Modern','Heritage','Luxury','Compact','Elegant','Traditional','Minimalist','Vintage','Contemporary','Handcrafted','Royal','Signature'],
+  hi:['प्रीमियम','कारीगर','क्लासिक','आधुनिक','विरासत','लक्जरी','कॉम्पैक्ट','सुंदर','पारंपरिक','न्यूनतम','विंटेज','समकालीन','हस्तनिर्मित','शाही','विशेष'],
+  pa:['ਪ੍ਰੀਮੀਅਮ','ਕਾਰੀਗਰ','ਕਲਾਸਿਕ','ਆਧੁਨਿਕ','ਵਿਰਾਸਤੀ','ਲਗਜ਼ਰੀ','ਕੰਪੈਕਟ','ਸੁੰਦਰ','ਪਰੰਪਰਾਗਤ','ਮਿਨੀਮਲਿਸਟ','ਵਿੰਟੇਜ','ਸਮਕਾਲੀ','ਹੱਥ-ਕਿਰਤ','ਸ਼ਾਹੀ','ਵਿਸ਼ੇਸ਼']
+};
+
+const PRICE_RANGES = {
+  furniture:[3999,89999], kitchen:[299,15999], electronics:[999,149999],
+  decor:[199,7999], bedding:[599,24999], lighting:[299,19999]
+};
+
+function seededRand(seed) {
+  let x = Math.sin(seed+1)*10000;
+  return x - Math.floor(x);
+}
+
+function generateProducts() {
+  const products = [];
+  let id = 1;
+  const perCat = Math.ceil(1000 / CATEGORIES.length);
+  CATEGORIES.forEach((cat, ci) => {
+    const imgs = CAT_IMAGES[cat];
+    const enNames = NAMES.en[cat];
+    const hiNames = NAMES.hi[cat];
+    const paNames = NAMES.pa[cat];
+    const [minP, maxP] = PRICE_RANGES[cat];
+    for(let i = 0; i < perCat && id <= 1000; i++, id++) {
+      const seed = id * 7 + ci * 137;
+      const nameIdx = i % enNames.length;
+      const adjIdx = Math.floor(seededRand(seed)*15);
+      const imgIdx = i % imgs.length;
+      const priceRaw = minP + Math.floor(seededRand(seed+1) * (maxP - minP));
+      const price = Math.round(priceRaw / 10) * 10;
+      const origPrice = Math.round(price * (1.1 + seededRand(seed+2)*0.4) / 10) * 10;
+      const rating = (3.5 + seededRand(seed+3)*1.5).toFixed(1);
+      const ratingCount = 10 + Math.floor(seededRand(seed+4)*990);
+      const isFeatured = seededRand(seed+5) > 0.85;
+      products.push({
+        id, cat, imgIdx,
+        names: {
+          en: ADJECTIVES.en[adjIdx] + ' ' + enNames[nameIdx],
+          hi: ADJECTIVES.hi[adjIdx] + ' ' + hiNames[nameIdx],
+          pa: ADJECTIVES.pa[adjIdx] + ' ' + paNames[nameIdx],
+        },
+        price, origPrice, rating: parseFloat(rating), ratingCount, isFeatured
+      });
+    }
+  });
+  return products;
+}
+
+const ALL_PRODUCTS = generateProducts();
+let cart = [];
+
+// ==================== FILTERING & SORTING ====================
+function getFiltered() {
+  let list = ALL_PRODUCTS;
+  if(currentCategory !== 'all') list = list.filter(p=>p.cat===currentCategory);
+  if(searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(p=>
+      p.names.en.toLowerCase().includes(q) ||
+      p.names.hi.includes(q) ||
+      p.names.pa.includes(q)
+    );
+  }
+  if(sortMode==='price-asc') list = [...list].sort((a,b)=>a.price-b.price);
+  else if(sortMode==='price-desc') list = [...list].sort((a,b)=>b.price-a.price);
+  else if(sortMode==='rating') list = [...list].sort((a,b)=>b.rating-a.rating);
+  else if(sortMode==='name') list = [...list].sort((a,b)=>a.names.en.localeCompare(b.names.en));
+  return list;
+}
+
+// ==================== RENDER ====================
+function renderProducts() {
+  const filtered = getFiltered();
+  const total = filtered.length;
+  const totalPages = Math.ceil(total/PER_PAGE);
+  if(currentPage > totalPages) currentPage = 1;
+  const start = (currentPage-1)*PER_PAGE;
+  const pageProducts = filtered.slice(start, start+PER_PAGE);
+  const grid = document.getElementById('productGrid');
+  const t = UI_TEXT[currentLang];
+
+  document.getElementById('resultCount').textContent = `Showing ${start+1}–${Math.min(start+PER_PAGE,total)} of ${total} products`;
+
+  grid.innerHTML = pageProducts.map((p,i) => {
+    const inCart = cart.some(c=>c.id===p.id);
+    const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating%1>=0.5?'½':'') + '☆'.repeat(5-Math.ceil(p.rating));
+    const discount = Math.round((1-p.price/p.origPrice)*100);
+    const img = CAT_IMAGES[p.cat][p.imgIdx];
+    return `
+    <div class="product-card" style="animation-delay:${(i%PER_PAGE)*0.03}s">
+      <div class="card-img-wrap">
+        <img src="${img}" alt="${p.names[currentLang]}" loading="lazy">
+        ${p.isFeatured?`<span class="card-badge">Featured</span>`:''}
+        ${discount>10?`<span class="card-badge" style="left:auto;right:10px;background:var(--forest)">-${discount}%</span>`:''}
+        <button class="card-wishlist" title="Wishlist">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${CAT_ICONS[p.cat]} ${t['cat'+p.cat.charAt(0).toUpperCase()+p.cat.slice(1)]||p.cat}</div>
+        <div class="card-name">${p.names[currentLang]}</div>
+        <div class="card-name-sub">${currentLang==='en'?'':(p.names.en)}</div>
+        <div class="card-rating">
+          <span class="stars">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))}</span>
+          <span class="rating-count">(${p.ratingCount})</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-price">
+            ₹${p.price.toLocaleString('en-IN')}
+            <span class="orig">₹${p.origPrice.toLocaleString('en-IN')}</span>
+          </div>
+          <button class="add-btn ${inCart?'added':''}" onclick="addToCart(${p.id})">
+            ${inCart?t.addedBtn:t.addBtn}
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const pg = document.getElementById('pagination');
+  if(totalPages <= 1) { pg.innerHTML=''; return; }
+  let html = '';
+  html += `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  const range = [];
+  for(let i=1;i<=totalPages;i++){
+    if(i===1||i===totalPages||Math.abs(i-currentPage)<=2) range.push(i);
+    else if(range[range.length-1]!=='…') range.push('…');
+  }
+  range.forEach(r=>{
+    if(r==='…') html+=`<span class="page-btn" style="cursor:default">…</span>`;
+    else html+=`<button class="page-btn ${r===currentPage?'active':''}" onclick="goPage(${r})">${r}</button>`;
+  });
+  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+  pg.innerHTML = html;
+}
+
+function goPage(p) {
+  const filtered = getFiltered();
+  const totalPages = Math.ceil(filtered.length/PER_PAGE);
+  if(p<1||p>totalPages) return;
+  currentPage = p;
+  renderProducts();
+  window.scrollTo({top:document.querySelector('.main').offsetTop-80,behavior:'smooth'});
+}
+
+// ==================== CART ====================
+function addToCart(id) {
+  const product = ALL_PRODUCTS.find(p=>p.id===id);
+  if(!product) return;
+  const existing = cart.find(c=>c.id===id);
+  if(existing) { existing.qty++; }
+  else { cart.push({...product, qty:1}); }
+  renderCart();
+  renderProducts();
+  showToast(`${product.names[currentLang]} added to cart!`);
+  animateCartBtn();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c=>c.id!==id);
+  renderCart();
+  renderProducts();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) removeFromCart(id);
+  else { renderCart(); }
+  renderProducts();
+}
+
+function renderCart() {
+  const t = UI_TEXT[currentLang];
+  document.getElementById('cartCount').textContent = cart.reduce((s,c)=>s+c.qty,0);
+  document.getElementById('cartTitle').textContent = t.cartTitle;
+
+  /* The error was here! When you added an item, this tried to update an ID that was deleted */
+  
+  document.getElementById('subtotalLabel').textContent = t.subtotalLabel;
+  document.getElementById('shippingLabel').textContent = t.shippingLabel;
+  document.getElementById('totalLabel').textContent = t.totalLabel;
+  document.getElementById('checkoutBtn').textContent = t.checkoutBtn;
+  document.getElementById('cartLabel').textContent = t.cartLabel;
+
+  const itemsEl = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  
+  if(cart.length===0) {
+    /* If empty, simply replace the HTML with the empty message directly */
+    itemsEl.innerHTML = `<div class="cart-empty"><div class="empty-icon">🛒</div><p id="emptyMsg">${t.emptyMsg}</p></div>`;
+    footer.style.display='none';
+    return;
+  }
+  
+  footer.style.display='block';
+  const subtotal = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('cartSubtotal').textContent = '₹'+subtotal.toLocaleString('en-IN');
+  document.getElementById('cartTotal').textContent = '₹'+subtotal.toLocaleString('en-IN');
+  
+  itemsEl.innerHTML = cart.map(c=>`
+    <div class="cart-item">
+      <img class="cart-item-img" src="${CAT_IMAGES[c.cat][c.imgIdx]}" alt="${c.names[currentLang]}">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.names[currentLang]}</div>
+        <div class="cart-item-sub">₹${c.price.toLocaleString('en-IN')} each</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+          <span class="qty-num">${c.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+          <span class="cart-item-price">₹${(c.price*c.qty).toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${c.id})">🗑</button>
+    </div>
+  `).join('');
+}
+
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function animateCartBtn() {
+  const btn = document.querySelector('.cart-btn');
+  btn.style.transform = 'scale(1.15)';
+  setTimeout(()=>btn.style.transform='',300);
+}
+
+// ==================== LANGUAGE ====================
+function cycleLanguage() {
+  const idx = LANGS.indexOf(currentLang);
+  currentLang = LANGS[(idx+1)%3];
+  document.getElementById('langBtn').textContent = UI_TEXT[currentLang].langLabel;
+  updateUIText();
+  renderProducts();
+  renderCart();
+}
+
+function updateUIText() {
+  const t = UI_TEXT[currentLang];
+  document.getElementById('heroSub').textContent = t.heroSub;
+  document.getElementById('statProducts').textContent = t.statProducts;
+  document.getElementById('statLanguages').textContent = t.statLanguages;
+  document.getElementById('statCategories').textContent = t.statCategories;
+  document.getElementById('statRating').textContent = t.statRating;
+  // Update category bar tabs
+  document.querySelectorAll('.cat-tab').forEach(tab=>{
+    const key = tab.dataset.key;
+    if(key && t[key]) {
+      const icon = tab.querySelector('.cat-icon').outerHTML;
+      tab.innerHTML = icon + ' <span>'+t[key]+'</span>';
+    }
+  });
+}
+
+// ==================== CATEGORY / SEARCH / SORT ====================
+function setCategory(cat, el) {
+  currentCategory = cat;
+  currentPage = 1;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const titles = {
+    all:{en:'All Products',hi:'सभी उत्पाद',pa:'ਸਾਰੇ ਉਤਪਾਦ'},
+    furniture:{en:'Furniture',hi:'फर्नीचर',pa:'ਫਰਨੀਚਰ'},
+    kitchen:{en:'Kitchen',hi:'किचन',pa:'ਰਸੋਈ'},
+    electronics:{en:'Electronics',hi:'इलेक्ट्रॉनिक्स',pa:'ਇਲੈਕਟ੍ਰੋਨਿਕਸ'},
+    decor:{en:'Decor',hi:'सजावट',pa:'ਸਜਾਵਟ'},
+    bedding:{en:'Bedding',hi:'बिस्तर',pa:'ਬਿਸਤਰਾ'},
+    lighting:{en:'Lighting',hi:'रोशनी',pa:'ਰੋਸ਼ਨੀ'},
+  };
+  const t = titles[cat]||titles.all;
+  document.getElementById('sectionTitle').innerHTML = `${t[currentLang]} <span>Products</span>`;
+  renderProducts();
+}
+
+function handleSearch(val) {
+  searchQuery = val;
+  currentPage = 1;
+  renderProducts();
+}
+
+// ==================== MOBILE NAV ====================
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+// ==================== TOAST ====================
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ==================== SCROLL TO TOP ====================
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY>400);
+});
+
+// ==================== INIT ====================
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
